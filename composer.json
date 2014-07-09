@@ -1,0 +1,12 @@
+{
+	"name": "atomita/wordpress-utils",
+	"keywords": ["utils", "wordpress"],
+	"license": "LGPLv3",
+	"version": "0.0.1",
+	"require": {
+	},
+	"autoload": {
+		"files": ["src/functions.php"],
+		"classmap": ["src/atomita/wordpress/utils/"]
+	}
+}
