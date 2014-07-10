@@ -2,7 +2,7 @@
 
 namespace atomita\wordpress\utils\collection;
 
-class Query implements Iterator, Countable, ArrayAccess
+class Query implements \Iterator, \Countable, \ArrayAccess
 {
 	protected $query;
 
@@ -47,7 +47,7 @@ class Query implements Iterator, Countable, ArrayAccess
 	}
 
 	function offsetSet($offset, $value){
-		throw new UnderflowException;
+		throw new \UnderflowException;
 	}
 
 	function offsetExists($offset) {
@@ -55,7 +55,7 @@ class Query implements Iterator, Countable, ArrayAccess
 	}
 
 	function offsetUnset($offset){
-		throw new UnderflowException;
+		throw new \UnderflowException;
 	}
 
 	function offsetGet($offset) {
