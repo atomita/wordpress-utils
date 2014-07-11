@@ -12,12 +12,17 @@ class Query implements \Iterator, \Countable, \ArrayAccess
 			$query = $GLOBALS['wp_query'];
 		}
 		$this->query = $query;
-
 	}
 
 	function current()
 	{
-		$this->query->the_post();
+		if ($this->query->current_post === -1){
+			$this->query->the_post();
+		}
+		else{
+			$GLOBALS['post'] = $this->query->post;
+			\setup_postdata($this->query->post);
+		}
 		return $this->query->post;
 	}
 
@@ -28,7 +33,7 @@ class Query implements \Iterator, \Countable, \ArrayAccess
 
 	function next()
 	{
-		// Have nothing.
+		$this->query->next_post();
 	}
 
 	function rewind()
