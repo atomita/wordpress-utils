@@ -6,6 +6,12 @@ class Query implements \Iterator, \Countable, \ArrayAccess
 {
 	protected $query;
 
+	protected function thePost(){
+		if ($this->query->have_posts()){
+			$this->query->the_post();
+		}
+	}
+
 	function __construct(\WP_Query $query = null)
 	{
 		if (is_null($query)){
@@ -16,13 +22,8 @@ class Query implements \Iterator, \Countable, \ArrayAccess
 
 	function current()
 	{
-		if ($this->query->current_post === -1){
-			$this->query->the_post();
-		}
-		else{
-			$GLOBALS['post'] = $this->query->post;
-			\setup_postdata($this->query->post);
-		}
+		$GLOBALS['post'] = $this->query->post;
+		\setup_postdata($this->query->post);
 		return $this->query->post;
 	}
 
@@ -33,17 +34,18 @@ class Query implements \Iterator, \Countable, \ArrayAccess
 
 	function next()
 	{
-		$this->query->next_post();
+		$this->thePost();
 	}
 
 	function rewind()
 	{
 		$this->query->rewind_posts();
+		$this->thePost();
 	}
 
 	function valid()
 	{
-		return $this->query->have_posts();
+		return isset($this->query->posts[$this->key()]);
 	}
 
 	function count()
