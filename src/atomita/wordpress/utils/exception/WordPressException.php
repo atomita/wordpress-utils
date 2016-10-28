@@ -9,7 +9,7 @@ class WordPressException extends Exception {
 	protected $error;
 
 	function __construct(WP_Error $error){
-		$code = $error->get_error_codes();
+		$code = $error->get_error_code();
 		parent::__construct($error->get_error_message($code), intval($code));
 
 		$this->error = $error;
